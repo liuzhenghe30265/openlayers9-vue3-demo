@@ -2,6 +2,8 @@
 // import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
 import MapMain from './components/OlMap/MapMain.vue'
+import { useCounterStore } from '@/stores/counter'
+const counter = useCounterStore()
 </script>
 
 <template>
@@ -19,6 +21,8 @@ import MapMain from './components/OlMap/MapMain.vue'
   </header> -->
   <!-- <RouterView /> -->
   <MapMain />
+  <h1 style="position: absolute; left: 50px; bottom: 50px;z-index: 999;color: #fff;">
+    {{ counter.count }}</h1>
 </template>
 
 <style scoped>

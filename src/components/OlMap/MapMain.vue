@@ -1,14 +1,30 @@
 <script setup lang="ts">
-import { onMounted, type Ref, ref } from 'vue'
-import { omap, type IMap } from '@/utils/map'
-const map: Ref<IMap> = ref(null)
+import { onMounted, type Ref, ref, getCurrentInstance, provide } from 'vue'
 
+
+import { omap, type IMap } from '@/utils/map'
+// const map: Ref<IMap> = ref(null)
+
+// pinia
+// import { useStore } from 'pinia'
+import { useCounterStore } from '@/stores/counter'
+const counter = useCounterStore()
+const handleClick = () => {
+    // counter.$patch({ count: counter.count + 1 })
+    counter.increment()
+}
 onMounted(() => {
     const mapInstance = omap({
         target: 'ol-map',
     })
-    map['value'] = mapInstance.getMap()
+    const map = mapInstance.getMap()
     console.log('map', map)
+    // map?.on('click', (event: any) => {
+    //     console.log('click', event)
+    // })
+    // map?.on('moveend', (event: any) => {
+    //     console.log('moveend', event)
+    // })
     // const map = new Map({
     //     layers: [
     //         new TileLayer({
@@ -73,7 +89,8 @@ onMounted(() => {
 
 <template>
     <div id="ol-map" class="ol-map">
-
+        <h1 style="position: absolute; bottom: 50px; right: 50px; color: #fff;z-index: 999;" @click="handleClick">{{
+            counter.count }}</h1>
     </div>
 </template>
 
