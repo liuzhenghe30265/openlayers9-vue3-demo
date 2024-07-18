@@ -3,16 +3,18 @@ const tk: string = '106f4215b69d22e0409ac6ea4fbc5b5f'
 export const config = {
     baseLayer: [
         {
+            id: 1,
+            type: 'xyz',
+            name: '矢量地图',
+            url: `http://wprd0{1-4}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=7&x={x}&y={y}&z={z}`,
+            visible: true,
+        },
+        {
+            id: 2,
             type: 'xyz',
             name: '天地图影像图',
             url: `http://t3.tianditu.com/DataServer?T=img_w&tk=${tk}&x={x}&y={y}&l={z}`,
-            visible: true
-        },
-        {
-            type: 'xyz',
-            name: '高德地图',
-            url: `http://wprd0{1-4}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=7&x={x}&y={y}&z={z}`,
-            visible: true
+            visible: false
         },
         // {
         //     type: 'xyz',

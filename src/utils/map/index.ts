@@ -40,6 +40,7 @@ export const omap = (opts: MapOptions) => {
                 // })
                 return new TileLayer({
                     title: _.name,
+                    id: _.id,
                     source: new XYZ({
                         url: _.url,
                     }),
@@ -53,11 +54,11 @@ export const omap = (opts: MapOptions) => {
             new ScaleLine(), // 比例尺控件
             new ZoomSlider(), // 缩放滑块刻度控件
             new FullScreen(), // 全屏控件
-            new MousePosition({
-                coordinateFormat: function (coordinate) {
-                    return `东经${coordinate?.[0]} 北纬${coordinate?.[1]}`
-                }
-            }) // 鼠标位置控件
+            // new MousePosition({
+            //     coordinateFormat: function (coordinate) {
+            //         return `东经${coordinate?.[0]} 北纬${coordinate?.[1]}`
+            //     }
+            // }) // 鼠标位置控件
         ])
 
     return new OMap(

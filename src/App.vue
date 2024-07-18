@@ -21,8 +21,8 @@ const counter = useCounterStore()
   </header> -->
   <!-- <RouterView /> -->
   <MapMain />
-  <h1 style="position: absolute; left: 50px; bottom: 50px;z-index: 999;color: #fff;">
-    {{ counter.count }}</h1>
+  <!-- <h1 style="position: absolute; left: 50px; bottom: 50px;z-index: 999;color: #fff;">
+    {{ counter.count }}</h1> -->
 </template>
 
 <style scoped>
