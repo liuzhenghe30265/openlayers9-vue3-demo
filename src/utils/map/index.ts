@@ -4,6 +4,7 @@ import Map, { type MapOptions } from 'ol/Map.js'
 import View from 'ol/View.js'
 import TileLayer from 'ol/layer/Tile.js'
 import XYZ from 'ol/source/XYZ.js'
+import { Group as LayerGroup } from 'ol/layer.js'
 import {
     defaults as Defaults,
     MousePosition,
@@ -30,12 +31,22 @@ class OMap {
 export const omap = (opts: MapOptions) => {
     const layers =
         opts.layers ||
-        config.url.xyzUrls.map(url => {
-            return new TileLayer({
-                visible: true,
-                source: new XYZ({ url })
-            });
-        });
+        config.baseLayer.map(_ => {
+            if (_.type === 'xyz') {
+                // return new LayerGroup({
+                //     layers: [
+
+                //     ]
+                // })
+                return new TileLayer({
+                    title: _.name,
+                    source: new XYZ({
+                        url: _.url,
+                    }),
+                    visible: _.visible
+                })
+            }
+        })
     const controls =
         opts.controls ||
         Defaults({ zoom: true }).extend([
@@ -46,7 +57,7 @@ export const omap = (opts: MapOptions) => {
                 coordinateFormat: function (coordinate) {
                     return `东经${coordinate?.[0]} 北纬${coordinate?.[1]}`
                 }
-            }) //鼠标位置控件
+            }) // 鼠标位置控件
         ])
 
     return new OMap(
