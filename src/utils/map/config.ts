@@ -4,50 +4,55 @@ export const config = {
     baseLayer: [
         {
             id: 1,
-            type: 'xyz',
+            source: 'xyz',
             name: '矢量地图',
+            type: 'base',
             url: `http://wprd0{1-4}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=7&x={x}&y={y}&z={z}`,
             visible: true,
         },
         {
             id: 2,
-            type: 'xyz',
+            source: 'xyz',
             name: '天地图影像图',
+            type: 'base',
             url: `http://t3.tianditu.com/DataServer?T=img_w&tk=${tk}&x={x}&y={y}&l={z}`,
             visible: false
         },
-        // {
-        //     type: 'xyz',
-        //     name: '天地图地形图',
-        //     url: `http://t4.tianditu.com/DataServer?T=ter_w&&tk=${tk}x={x}&y={y}&l={z}`,
-        //     visible: false
-        // },
-        // {
-        //     type: 'xyz',
-        //     name: '天地图标注',
-        //     url: `http://t4.tianditu.com/DataServer?T=cva_w&tk=${tk}&x={x}&y={y}&l={z}`,
-        //     visible: true
-        // },
-
-        // {
-        //     type: 'xyz',
-        //     name: '高德地图影像图',
-        //     url: `http://webst01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=6&x={x}&y={y}&z={z}`,
-        //     visible: true
-        // },
-        // {
-        //     type: 'xyz',
-        //     name: '高德地图路网标记',
-        //     url: `http://webst01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=8&x={x}&y={y}&z={z}`,
-        //     visible: true
-        // },
-        // {
-        //     type: 'xyz',
-        //     name: 'arcgisonline',
-        //     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-        //     crossOrigin: 'anonymous',
-        //     visible: false
-        // }
+        {
+            id: 3,
+            source: 'xyz',
+            name: '天地图标注',
+            type: '',
+            url: `http://t4.tianditu.com/DataServer?T=cva_w&tk=${tk}&x={x}&y={y}&l={z}`,
+            visible: true
+        },
+    ],
+    subLayer: [
+        {
+            source: 'xyz',
+            name: '天地图地形图',
+            url: `http://t4.tianditu.com/DataServer?T=ter_w&&tk=${tk}x={x}&y={y}&l={z}`,
+            visible: false
+        },
+        {
+            source: 'xyz',
+            name: '高德地图影像图',
+            url: `http://webst01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=6&x={x}&y={y}&z={z}`,
+            visible: true
+        },
+        {
+            source: 'xyz',
+            name: '高德地图路网标记',
+            url: `http://webst01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=8&x={x}&y={y}&z={z}`,
+            visible: true
+        },
+        {
+            source: 'xyz',
+            name: 'arcgisonline',
+            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+            crossOrigin: 'anonymous',
+            visible: false
+        }
     ],
     center: [113.728361, 22.28002], // 默认中心点
     zoom: 10, // 默认缩放等级

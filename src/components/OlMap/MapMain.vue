@@ -26,11 +26,12 @@ onMounted(() => {
 
 const handleChangeBaseLayer = (id: number) => {
     const layers: BaseLayer[] | undefined = map.value?.getLayers().getArray()
-    layers?.map(_ => _.setVisible(false))
-    const index: number | undefined = layers?.findIndex(_ => _.get('id') === id)
-    if (index && index > -1) {
-        if (layers && layers.length) {
-            const targetLayer = layers[index]
+    const _layers = layers?.filter(_ => _.get('type') === 'base')
+    _layers?.map(_ => _.setVisible(false))
+    const index: number | undefined = _layers?.findIndex(_ => _.get('id') === id)
+    if (typeof index === 'number' && index > -1) {
+        if (_layers && _layers.length) {
+            const targetLayer = _layers[index]
             targetLayer.setVisible(true)
             currentBaseLayer.value = id
         }

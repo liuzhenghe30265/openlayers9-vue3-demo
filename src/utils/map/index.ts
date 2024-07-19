@@ -32,7 +32,7 @@ export const omap = (opts: MapOptions) => {
     const layers =
         opts.layers ||
         config.baseLayer.map(_ => {
-            if (_.type === 'xyz') {
+            if (_.source === 'xyz') {
                 // return new LayerGroup({
                 //     layers: [
 
@@ -40,6 +40,7 @@ export const omap = (opts: MapOptions) => {
                 // })
                 return new TileLayer({
                     title: _.name,
+                    type: _.type,
                     id: _.id,
                     source: new XYZ({
                         url: _.url,
