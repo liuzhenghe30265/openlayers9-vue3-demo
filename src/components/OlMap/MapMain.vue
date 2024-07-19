@@ -51,7 +51,7 @@ const handleChangeBaseLayer = (id: number) => {
     </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
 .ol-map {
     width: 100%;
     height: 100%;
@@ -69,13 +69,13 @@ const handleChangeBaseLayer = (id: number) => {
     background-color: #fff;
     color: #333;
     font-size: 24px;
-}
 
-.nav_control .btn {
-    cursor: pointer;
-}
+    .btn {
+        cursor: pointer;
 
-.nav_control .btn.active {
-    color: red;
+        &.active {
+            color: red;
+        }
+    }
 }
 </style>
