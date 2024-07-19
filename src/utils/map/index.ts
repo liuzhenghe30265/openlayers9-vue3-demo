@@ -3,6 +3,8 @@ import 'ol/ol.css'
 import Map, { type MapOptions } from 'ol/Map.js'
 import View from 'ol/View.js'
 import TileLayer from 'ol/layer/Tile.js'
+import OlLayerVector from 'ol/layer/Vector'
+import OlSourceVector from 'ol/source/Vector'
 import XYZ from 'ol/source/XYZ.js'
 import { Group as LayerGroup } from 'ol/layer.js'
 import {
@@ -25,6 +27,47 @@ class OMap {
     }
     getMap() {
         return this.map
+    }
+    // 获取所有图层
+    getAllLayers() {
+        return this.map?.getLayers().getArray()
+    }
+    // 根据 id 获取图层
+    getLayerById(id: string | number) {
+        const layers = this.getAllLayers()
+        const layer = layers?.find(_ => _.get('id') === id)
+        return layer
+    }
+    // 添加矢量标注图层
+    addVectorLayer(id: string | number) {
+        const vectorLayer = new OlLayerVector({
+            id: id,
+            source: new OlSourceVector(),
+            zIndex: 999,
+        })
+        this.map?.addLayer(vectorLayer)
+    }
+    addOlFeature() {
+        
+    }
+    // 添加地图事件
+    addEventHandler() {
+        this.map?.on('singleclick', event => {
+            console.log(event)
+            const feature = this.map?.forEachFeatureAtPixel(
+                event.pixel,
+                // eslint-disable-next-line no-unused-vars
+                (feature, layer) => {
+                    return feature
+                }
+            )
+            console.log(feature)
+            if (feature) {
+                // 点击到标注
+                const symbolData = feature.get('data')
+                console.log(symbolData)
+            }
+        })
     }
 }
 

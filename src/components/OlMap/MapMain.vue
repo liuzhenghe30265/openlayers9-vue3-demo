@@ -6,8 +6,6 @@ import { useCounterStore } from '@/stores/counter'
 import type BaseLayer from 'ol/layer/Base'
 import OlFeature from 'ol/Feature'
 import OlGeomPoint from 'ol/geom/Point'
-import OlLayerVector from 'ol/layer/Vector'
-import OlSourceVector from 'ol/source/Vector'
 import OlStyleStyle from 'ol/style/Style'
 import OlStyleIcon from 'ol/style/Icon'
 import OlStyleText from 'ol/style/Text'
@@ -15,7 +13,8 @@ import OlStyleFill from 'ol/style/Fill'
 import OlStyleStroke from 'ol/style/Stroke'
 import { Fill, RegularShape, Stroke, Style, Circle as CircleStyle, } from 'ol/style.js'
 
-const map: Ref<IMap> = shallowRef(null)
+const mapInstance: any = shallowRef(null) // map 实例
+const map: Ref<IMap> = shallowRef(null) // map 对象
 const currentBaseLayer = ref(1)
 const marked = ref(true)
 
@@ -53,6 +52,7 @@ const setSymbolStyle = (index: number, type: string, fill: OlStyleFill) => {
                 //     anchor: [0.5, 1],
                 //     scale: 0.4
                 // }),
+                // https://openlayers.org/en/latest/examples/regularshape.html
                 image: new RegularShape({
                     fill: fill,
                     stroke: stroke,
@@ -100,7 +100,8 @@ const setSymbolStyle = (index: number, type: string, fill: OlStyleFill) => {
     return Styles
 }
 const handleMark = () => {
-    const layer = getLayerById('CustomSymbols')
+    const layer = mapInstance.value.getLayerById('CustomSymbols')
+    // const layer = getLayerById('CustomSymbols')
     marked.value = !marked.value
     if (marked.value) {
         layer?.getSource().clear()
@@ -142,34 +143,19 @@ const handleMark = () => {
 
 // 初始化地图
 const initMap = () => {
-    const mapInstance = omap({
+    mapInstance['value'] = omap({
         target: 'ol-map',
     })
-    map['value'] = mapInstance.getMap()
+    map['value'] = mapInstance.value.getMap()
     console.log('map', map)
-    const layers = getAllLayers()
 
     // 添加矢量标注图层
-    const vectorLayer = new OlLayerVector({
-        id: 'CustomSymbols',
-        source: new OlSourceVector(),
-        zIndex: 999,
-    })
-    map.value?.addLayer(vectorLayer)
-    console.log(layers)
-}
+    mapInstance.value.addVectorLayer('CustomSymbols')
 
-// 根据 id 获取图层
-const getLayerById = (id: string | number) => {
-    const layers = getAllLayers()
-    const layer = layers?.find(_ => _.get('id') === 'CustomSymbols')
-    return layer
-}
+    // 添加地图事件
+    mapInstance.value.addEventHandler()
 
-// 获取所有图层
-const getAllLayers = () => {
-    const layers: BaseLayer[] | undefined = map.value?.getLayers().getArray()
-    return layers
+    console.log('getAllLayers', mapInstance.value.getAllLayers())
 }
 
 const counter = useCounterStore()
