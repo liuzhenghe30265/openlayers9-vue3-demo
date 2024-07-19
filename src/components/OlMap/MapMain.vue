@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, type Ref, ref, shallowRef, getCurrentInstance, provide } from 'vue'
 
-
 import { omap, type IMap } from '@/utils/map'
 const map: Ref<IMap> = shallowRef(null)
 
@@ -27,11 +26,15 @@ onMounted(() => {
 
 const handleChangeBaseLayer = (id: number) => {
     const layers: BaseLayer[] | undefined = map.value?.getLayers().getArray()
-    layers.map(_ => _.setVisible(false))
-    const index = layers.findIndex(_ => _.get('id') === id)
-    const targetLayer = layers[index]
-    targetLayer.setVisible(true)
-    currentBaseLayer.value = id
+    layers?.map(_ => _.setVisible(false))
+    const index: number | undefined = layers?.findIndex(_ => _.get('id') === id)
+    if (index && index > -1) {
+        if (layers && layers.length) {
+            const targetLayer = layers[index]
+            targetLayer.setVisible(true)
+            currentBaseLayer.value = id
+        }
+    }
 }
 
 </script>
