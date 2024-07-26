@@ -49,8 +49,6 @@ const initMap = () => {
 
     // 添加地图事件
     mapInstance.value.addEventHandler()
-
-    console.log('getAllLayers', mapInstance.value.getAllLayers())
 }
 
 </script>
